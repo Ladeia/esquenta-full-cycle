@@ -15,11 +15,13 @@ func worker(workerId int, data chan int) {
 func main() {
 
 	canal := make(chan int)
+	qtdWorkers := 1000
 
-	go worker(1, canal)
-	go worker(2, canal)
+	for i := 0; i < qtdWorkers; i++ {
+		go worker(i, canal)
+	}
 
-	for i := 0; i < 10; i++ { // este idioma não funcionou for i := range 10 {
+	for i := 0; i < 10000; i++ { // este idioma não funcionou for i := range 10 {
 		canal <- i
 	}
 
